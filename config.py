@@ -1,0 +1,5 @@
+import os
+
+
+PATH_TO_DIRECTORY =os.getenv('PATH_TO_DIRECTORY' , r"..\..\podcasts" )
+UNIQUE_FIELD_INDENTIFIER_IN_JSON = os.getenv('UNIQUE_FIELD_INDENTIFIER_IN_JSON' , 'Name')
