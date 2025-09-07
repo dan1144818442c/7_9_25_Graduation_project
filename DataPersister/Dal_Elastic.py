@@ -1,9 +1,9 @@
 from elasticsearch import Elasticsearch
-
+import config
 class ElasticSerarch:
 
     def __init__(self):
-        self.es = Elasticsearch([{'scheme': 'http', 'host': 'localhost', 'port': 9200}])
+        self.es = Elasticsearch([{'scheme': config.SCHEMA_elastic, 'host': config.HOST_ELASTIC, 'port': config.PORT_ELASTIC}])
 
     def ping(self):
         ping = self.es.ping()
@@ -33,7 +33,7 @@ class ElasticSerarch:
 
         response = self.es.search(
             index=index_name,
-            body={'query':query} )
+            body={'query':query} ,size=1000 )
         list_res = []
         for hit in response['hits']['hits']:
             list_res.append(hit)
