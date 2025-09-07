@@ -10,4 +10,4 @@ if __name__ == '__main__':
     for path in list_path:
         metadata_dic = Loader.get_metadata_of_file(path)
         print(metadata_dic)
-        pub.publish_message("mata_data_of_podcast" , metadata_dic)
+        pub.publish_message(config.TOPIC_FOR_KAFKA , metadata_dic)
