@@ -41,3 +41,9 @@ class Dal_mongo:
             self.logger.error(f"Faild Pulling all DOCUMNET from MONGIDB db - db name : {self.DB} , collection : {self.fs}  successfully ")
 
 
+    def get_all_id_fro_collection(self ):
+        file_ids = []
+        for grid_out in self.fs.find():
+            file_ids.append(grid_out._id)
+        return file_ids
+    # def get_all_wav_file(self):

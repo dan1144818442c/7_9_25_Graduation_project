@@ -30,5 +30,5 @@ class Persister:
     def get_all_doc(self):
         return self.mongo.get_all_doc()
 
-    # def get_all_wav_file(self):
+
     #     self.mongo.get_all_wav_file()

@@ -26,10 +26,10 @@ from DataPersister import persister
 # # combined_string = f"{field1}-{field2}"
 # # unique_id_hash = hashlib.sha256(combined_string.encode()).hexdigest()
 # # print(f"Hashed ID: {unique_id_hash}")
-# es = Dal_Elastic.ElasticSerarch()
+es = Dal_Elastic.ElasticSerarch()
 # print(es.ping())
 # #
-# es.delete_index(index_name='index_logger_name')
+es.delete_index(index_name=config.INDEX_NAME)
 # print(es.search(index_name=config.INDEX_NAME, query={"match_all": {}}))
 
 #
@@ -84,6 +84,7 @@ from DataPersister import persister
 # # wavfile.write('output1.wav', 44100, audio_array)
 persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
                       uri=config.URI,collection_name="A")
+# print(persister.mongo.get_all_id_fro_collection())
 # wav_files_cursor = persister.mongo.fs._files.find({ })
 # filedname = config.NAME_KEY_IN_DOC
 # print(persister.mongo.fs._chunks.data)

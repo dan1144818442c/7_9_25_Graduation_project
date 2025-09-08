@@ -67,17 +67,27 @@ class ElasticSerarch:
     #     doc = self.es.get(index=index_name, id=id)
     #     return doc['_source']
     #
-    # def update_doc(self , index_name, doc  , id = None  ,query =None):
-    #     if not id and not  query:
-    #         raise ValueError("must be id or query")
-    #     elif id and query:
-    #         raise ValueError("must be or  id or query")
-    #     elif id and not query:
-    #         self.es.update(index=index_name , id=id , body={'doc':doc})
-    #     else:
-    #         self.es.update_by_query(index=index_name , body={'query' : query , "doc"  :doc})
-    #     return "update"
-    #
+    def update_doc(self , index_name, doc  , id = None  ,query =None):
+        if not id and not  query:
+            raise ValueError("must be id or query")
+        elif id and query:
+            raise ValueError("must be or  id or query")
+        elif id and not query:
+            self.es.update(index=index_name , id=id , body={'doc':doc})
+        else:
+            self.es.update_by_query(index=index_name , body={'query' : query , "doc"  :doc})
+        return "update"
+
+    def search_by_id(self ,index_name,id):
+        try:
+            response = self.es.get(index=index_name, id=id)
+            if response.get('found'):
+                document = response.get('_source')
+                return document
+            else:
+                print(f"Document with ID '{id}' not found in index '{index_name}'.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
     # def delete_doc(self , index_name , id = None , query = None):
     #     if not id and not  query:
     #         raise ValueError("must be id or query")
