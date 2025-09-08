@@ -1,8 +1,6 @@
 from  logger_ import log
 import config
 from  DataPersister.persister import Persister
-from  kafka_.kafka_consumer import Subscriber
-from Dal import Dal_Elastic,Dal_mongodb
 from tools import convert_wav
 
 def transcription_and_updating_doc(field_name_for_Transcription , path_for_temporary_file , mongo_fs , id  , doc_to_update):
