@@ -1,9 +1,20 @@
 from elasticsearch import Elasticsearch
 import config
+from  logger_ import log
 class ElasticSerarch:
 
     def __init__(self):
         self.es = Elasticsearch([{'scheme': config.SCHEMA_elastic, 'host': config.HOST_ELASTIC, 'port': config.PORT_ELASTIC}])
+        self.logger = log.Logger.get_logger()
+        self.update_connection_logging()
+
+
+    def update_connection_logging(self):
+        if self.ping():
+            self.logger.info("The connection to ElasticSerarch was successfully connected.")
+        else:
+            self.logger.info("The connection to ElasticSerarch failed.")
+
 
     def ping(self):
         ping = self.es.ping()

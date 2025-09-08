@@ -33,6 +33,6 @@ class Loader:
                         'file path' : str(orginal_file_path)
                         }
             return dic_data
-
+        print(str(file_path)  + " not found")
         return "file not found"
 

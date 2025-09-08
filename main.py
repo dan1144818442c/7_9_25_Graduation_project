@@ -1,7 +1,4 @@
-import uuid
-from  DataPersister import Dal_Elastic
-import numpy as np
-from scipy.io import wavfile
+from Dal import Dal_Elastic
 import config
 # Generate a version 4 UUID (randomly generated)
 # unique_id = uuid.uuid4()
@@ -29,6 +26,7 @@ import config
 # # unique_id_hash = hashlib.sha256(combined_string.encode()).hexdigest()
 # # print(f"Hashed ID: {unique_id_hash}")
 es = Dal_Elastic.ElasticSerarch()
+print(es.ping())
 #
 # es.delete_index(index_name=config.INDEX_NAME)
 print(es.search(index_name=config.INDEX_NAME, query={"match_all": {}}))
