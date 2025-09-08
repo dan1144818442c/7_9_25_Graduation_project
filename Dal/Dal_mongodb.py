@@ -18,13 +18,17 @@ class Dal_mongo:
         if self.connection.db_name.command('ping') == {'ok': 1.0} :
             self.logger.info("The connection to MONGODB was successfully connected.")
         else:
-            self.logger.info("The connection to MONGODB failed.")
+            self.logger.error("The connection to MONGODB failed.")
 
     def insert_file_wav(self,document , wav_file_path , id  = None ):
+        try:
+            with open(wav_file_path, 'rb') as f:
+                file_id = self.fs.put(f, filename=document[config.NAME_KEY_IN_DOC], content_type='audio/wav' , _id=id)
 
-        with open(wav_file_path, 'rb') as f:
-            file_id = self.fs.put(f, filename=document[config.NAME_KEY_IN_DOC], content_type='audio/wav' , _id=id)
-            return file_id
+            self.logger.info(f"insert to mongo db - db name : {self.DB} , collection : {self.fs}  this document : {document} successfully ")
+
+        except:
+            self.logger.error(f"faild toinsert to mongo db - db name : {self.DB} , collection : {self.fs}  this document : {document}" )
 
     def get_all_doc(self):
         docs = list(self.collection.find({}))

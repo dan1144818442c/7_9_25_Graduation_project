@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from datetime import datetime
-
+from logger_ import log
 class Loader:
 
     @staticmethod

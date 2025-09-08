@@ -28,8 +28,8 @@ import config
 es = Dal_Elastic.ElasticSerarch()
 print(es.ping())
 #
-# es.delete_index(index_name=config.INDEX_NAME)
-print(es.search(index_name=config.INDEX_NAME, query={"match_all": {}}))
+es.delete_index(index_name='index_logger_name')
+# print(es.search(index_name=config.INDEX_NAME, query={"match_all": {}}))
 
 #
 # from pydub import AudioSegment

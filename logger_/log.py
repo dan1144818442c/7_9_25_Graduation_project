@@ -5,7 +5,7 @@ import config
 class Logger:
     _logger = None
     @classmethod
-    def get_logger(cls, name="logger_podcast", es_host=config.HOST_ELASTIC ,index="index_logger_name", level=logging.DEBUG):
+    def get_logger(cls, name=config.LOGGER_PODCAST_NAME, es_host=config.HOST_ELASTIC ,index=config.LOGGER_PODCAST_INDEX_NAME, level=logging.DEBUG):
         if cls._logger:
             return cls._logger
         logger = logging.getLogger(name)

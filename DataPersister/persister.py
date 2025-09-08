@@ -5,13 +5,11 @@ from logger_ import log
 
 class Persister:
     def __init__(self , index_name , mapping_for_elastic  , uri ,db_name , collection_name):
-        logger = log.Logger.get_logger()
         self.mongo = Dal_mongo(uri,db_name,collection_name)
         self.es = ElasticSerarch()
         self.index_name = index_name
         self.es.create_index(index_name=index_name,index_mapping=mapping_for_elastic)
 
-    # def updated_logger_for_connection(self):
 
     @staticmethod
     def get_new_id(uniq_fields):

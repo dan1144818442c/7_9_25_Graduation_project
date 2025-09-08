@@ -13,7 +13,7 @@ class ElasticSerarch:
         if self.ping():
             self.logger.info("The connection to ElasticSerarch was successfully connected.")
         else:
-            self.logger.info("The connection to ElasticSerarch failed.")
+            self.logger.error("The connection to ElasticSerarch failed.")
 
 
     def ping(self):
@@ -28,16 +28,24 @@ class ElasticSerarch:
                 self.es.indices.create(index=index_name, body=index_mapping)
                 return "create by your mapping"
             self.es.indices.create(index=index_name)
+
+            self.logger.info(f"create index - {index_name}")
             return "create index"
+        self.logger.info(f"index = {index_name} already exists")
         return "already exists"
 
     def delete_index(self , index_name):
+
         if self.es.indices.exists(index=index_name):
             self.es.indices.delete(index=index_name)
-
+            self.logger.info(f"Delete  index : '{index_name}' successfully ")
+            return
+        self.logger.error(f"Deletion index : '{index_name}' : failed.")
 
     def create_doc(self, index_name, doc , id ):
-        respones = self.es.index(index=index_name, body=doc , id=id)
+
+        respones = self.es.index(index= index_name, body= doc , id= id)
+        self.logger.info(f"add doc to  ELASTIC_SEARCH: {doc} with id : {id} , to index : {index_name}")
         return respones
 
     def search(self, index_name, query):
