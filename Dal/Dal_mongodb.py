@@ -31,8 +31,13 @@ class Dal_mongo:
             self.logger.error(f"faild toinsert to mongo db - db name : {self.DB} , collection : {self.fs}  this document : {document}" )
 
     def get_all_doc(self):
-        docs = list(self.collection.find({}))
-        for d in docs:
-            d["_id"] = str(d["_id"])
-        return docs
+        try:
+            docs = list(self.collection.find({}))
+            for d in docs:
+                d["_id"] = str(d["_id"])
+            self.logger.info(f"Pulling all DOCUMNET from MONGODB - db - db name : {self.DB} , collection : {self.fs}  successfully  ")
+            return docs
+        except:
+            self.logger.error(f"Faild Pulling all DOCUMNET from MONGIDB db - db name : {self.DB} , collection : {self.fs}  successfully ")
+
 

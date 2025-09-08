@@ -9,6 +9,7 @@ class Persister:
         self.es = ElasticSerarch()
         self.index_name = index_name
         self.es.create_index(index_name=index_name,index_mapping=mapping_for_elastic)
+        self.logger = log.Logger.get_logger()
 
 
     @staticmethod
@@ -19,6 +20,7 @@ class Persister:
         return int(str(uniqe_val)[:9])
 
     def upload_to_elastic(self , doc , id_ = None):
+
         self.es.create_doc(index_name=self.index_name, doc=doc , id=id_)
 
     def inser_file_wav_to_mongo(self , doc ,path_to_file, id):

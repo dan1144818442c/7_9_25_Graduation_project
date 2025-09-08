@@ -1,5 +1,6 @@
 from Dal import Dal_Elastic
 import config
+from DataPersister import persister
 # Generate a version 4 UUID (randomly generated)
 # unique_id = uuid.uuid4()
 # for i in range(10):
@@ -25,10 +26,10 @@ import config
 # # combined_string = f"{field1}-{field2}"
 # # unique_id_hash = hashlib.sha256(combined_string.encode()).hexdigest()
 # # print(f"Hashed ID: {unique_id_hash}")
-es = Dal_Elastic.ElasticSerarch()
-print(es.ping())
-#
-es.delete_index(index_name='index_logger_name')
+# es = Dal_Elastic.ElasticSerarch()
+# print(es.ping())
+# #
+# es.delete_index(index_name='index_logger_name')
 # print(es.search(index_name=config.INDEX_NAME, query={"match_all": {}}))
 
 #
@@ -81,5 +82,65 @@ es.delete_index(index_name='index_logger_name')
 # # audio_array = np.frombuffer(audio_bytes, dtype=np.int16)
 # # # Save the NumPy array as a WAV file
 # # wavfile.write('output1.wav', 44100, audio_array)
+persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
+                      uri=config.URI,collection_name="A")
+# wav_files_cursor = persister.mongo.fs._files.find({ })
+# filedname = config.NAME_KEY_IN_DOC
+# print(persister.mongo.fs._chunks.data)
+# for grid_out in persister.mongo.fs.find({}):
+#     print(f"Filename: {grid_out.filename}, Upload Date: {grid_out.uploadDate}")
+#     # You can also access other file properties like length, contentType, metadata, etc.
+#     data = grid_out.read() # To read the actual file content
+#     print(type(data))
+#     bytes_data =data
+#     import base64
+#
+#     base64_string = data
+#     decoded_data = base64.b64decode(base64_string)
+#     import wave
+#
+#     output_filename = "output_audio.wav"
+#     # These parameters must match the original audio data encoded in Base64
+#     nchannels = 1  # Number of audio channels (e.g., 1 for mono, 2 for stereo)
+#     sampwidth = 2  # Sample width in bytes (e.g., 2 for 16-bit audio)
+#     framerate = 44100  # Sample rate in Hz (e.g., 44100 Hz)
+#
+#     with wave.open(output_filename, 'wb') as wav_file:
+#         wav_file.setnchannels(nchannels)
+#         wav_file.setsampwidth(sampwidth)
+#         wav_file.setframerate(framerate)
+#         wav_file.writeframes(decoded_data)
 
+import base64
+# grid_out =persister.mongo.fs.get(889638274)
+# binary_data = grid_out.read()
+# base64_encoded_data = base64.b64encode(binary_data)
+# base64_string = base64_encoded_data.decode('utf-8')
+# print(base64_string)
+# import speech_recognition as sr
+#
+# import wave
+# decoded_data = base64.b64decode(base64_string)
+# output_filename = "output_audio.wav"
 
+# If the decoded data is raw PCM, you'll need to specify parameters like
+# number of channels, sample width, and sample rate.
+# For example, for 1-channel, 16-bit PCM at 44100 Hz:
+# with wave.open(output_filename, 'wb') as wf:
+#     wf.setnchannels(1)
+#     wf.setsampwidth(2) # 2 bytes for 16-bit
+#     wf.setframerate(44100)
+#     wf.writeframes(decoded_data)
+
+# If the base64 string already represents a complete WAV file,
+# you can directly write the decoded data:
+# with open(output_filename, 'wb') as f:
+#     f.write(binary_data)
+# # r = sr.Recognizer()
+#
+# text = r.recognize_google(base64_string)
+# text = text.lower()
+
+# from tools import convert_wav
+# data = convert_wav.get_binary_data_from_mongo(persister.mongo.fs , 158776080)
+# convert_wav.export_binary_data_to_wav_file("abc.wav" , data)
