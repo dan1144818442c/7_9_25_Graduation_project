@@ -27,8 +27,8 @@ class Dal_mongo:
 
             self.logger.info(f"insert to mongo db - db name : {self.DB} , collection : {self.fs}  this document : {document} successfully ")
 
-        except:
-            self.logger.error(f"faild toinsert to mongo db - db name : {self.DB} , collection : {self.fs}  this document : {document}" )
+        except Exception as e:
+            self.logger.error(f"faild toinsert to mongo db - db name : {self.DB} , collection : {self.fs}  this document : {document} -- {e}" )
 
     def get_all_doc(self):
         try:
@@ -37,8 +37,8 @@ class Dal_mongo:
                 d["_id"] = str(d["_id"])
             self.logger.info(f"Pulling all DOCUMNET from MONGODB - db - db name : {self.DB} , collection : {self.fs}  successfully  ")
             return docs
-        except:
-            self.logger.error(f"Faild Pulling all DOCUMNET from MONGIDB db - db name : {self.DB} , collection : {self.fs}  successfully ")
+        except Exception as e:
+            self.logger.error(f"Faild Pulling all DOCUMNET from MONGIDB db - db name : {self.DB} , collection : {self.fs}  successfully - {e} ")
 
 
     def get_all_id_fro_collection(self ):

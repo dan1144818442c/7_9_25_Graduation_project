@@ -12,6 +12,7 @@ index_mapping = {
             "creation_datetime": {"type": "keyword"} ,
             "file path with type": {"type": "keyword"} ,
             "file path": {"type": "keyword"} ,
+            "transcription_audio" : {"type": "keyword"}
 
         }
     }

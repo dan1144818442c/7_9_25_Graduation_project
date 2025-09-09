@@ -18,7 +18,7 @@ class Loader:
             return file_paths
 
         except Exception as e:
-            logger.error(f"Faild create producer - {e}")
+            logger.error(f"Faild get all All file paths from {directory_path} - {e}")
 
     @staticmethod
     def get_metadata_of_file(file_path):
@@ -44,6 +44,6 @@ class Loader:
                 logger.info("The dictionary is created with all the META DATA.")
                 return dic_data
         except Exception as e:
-            logger.error("faild created the dictionary with all the META DATA.")
+            logger.error(f"faild created the dictionary with all the META DATA.  - {e}")
             
 

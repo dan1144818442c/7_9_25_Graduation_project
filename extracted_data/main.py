@@ -1,12 +1,14 @@
 import config
 from extracted_data.load_data import Loader
 from kafka_ import kafka_producer
+from logger_ import log
 
 list_path = Loader.get_file_paths_in_list(config.PATH_TO_DIRECTORY)
 pub = kafka_producer.Produce()
-
+logger = log.Logger.get_logger()
 if __name__ == '__main__':
     for path in list_path:
         metadata_dic = Loader.get_metadata_of_file(path)
         print(metadata_dic)
         pub.publish_message(config.TOPIC_FOR_KAFKA , metadata_dic)
+

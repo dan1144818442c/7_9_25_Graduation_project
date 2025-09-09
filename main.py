@@ -12,20 +12,12 @@ from DataPersister import persister
 #     print(unique_id_str)
 #
 #
+#from pymongo import MongoClient
+# import gridfs
+# import io
+import speech_recognition as sr
 #
-# field1 = "apple"
-# field2 = "red"
-# #
-# # # Option 1: Concatenation
-# # unique_id_concat = f"{field1}-{field2}"
-# # print(f"Concatenated ID: {unique_id_concat}")
-# #
-# # # Option 2: Hashing the combination
-# # import hashlib
-# #
-# # combined_string = f"{field1}-{field2}"
-# # unique_id_hash = hashlib.sha256(combined_string.encode()).hexdigest()
-# # print(f"Hashed ID: {unique_id_hash}")
+#
 es = Dal_Elastic.ElasticSerarch()
 # print(es.ping())
 # #
@@ -145,3 +137,6 @@ import base64
 # from tools import convert_wav
 # data = convert_wav.get_binary_data_from_mongo(persister.mongo.fs , 158776080)
 # convert_wav.export_binary_data_to_wav_file("abc.wav" , data)
+from  tools import convert_wav
+import io
+data = convert_wav.get_binary_data_from_mongo(persister.mongo.fs, -97809700)

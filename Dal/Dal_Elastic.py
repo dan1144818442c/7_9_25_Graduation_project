@@ -46,6 +46,9 @@ class ElasticSerarch:
     def create_doc(self, index_name, doc , id ):
         try:
             respones = self.es.index(index= index_name, body= doc , id= id)
+            if respones['result'] != 'created':
+                self.logger.error( f"Faild add doc to  ELASTIC_SEARCH: {doc} with id : {id} , to index : {index_name}  - {e}")
+                return respones
             self.logger.info(f"add doc to  ELASTIC_SEARCH: {doc} with id : {id} , to index : {index_name}")
             return respones
 
@@ -85,9 +88,9 @@ class ElasticSerarch:
                 document = response.get('_source')
                 return document
             else:
-                print(f"Document with ID '{id}' not found in index '{index_name}'.")
+                self.logger.info(f"Document with ID '{id}' not found in index '{index_name}'.)")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            self.logger.error(f"Document with ID '{id}' not found in index '{index_name}'  {e}")
     # def delete_doc(self , index_name , id = None , query = None):
     #     if not id and not  query:
     #         raise ValueError("must be id or query")
