@@ -74,8 +74,8 @@ es.delete_index(index_name=config.INDEX_NAME)
 # # audio_array = np.frombuffer(audio_bytes, dtype=np.int16)
 # # # Save the NumPy array as a WAV file
 # # wavfile.write('output1.wav', 44100, audio_array)
-persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
-                      uri=config.URI,collection_name="A")
+# persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
+#                       uri=config.URI,collection_name="A")
 # print(persister.mongo.get_all_id_fro_collection())
 # wav_files_cursor = persister.mongo.fs._files.find({ })
 # filedname = config.NAME_KEY_IN_DOC
@@ -137,6 +137,92 @@ import base64
 # from tools import convert_wav
 # data = convert_wav.get_binary_data_from_mongo(persister.mongo.fs , 158776080)
 # convert_wav.export_binary_data_to_wav_file("abc.wav" , data)
-from  tools import convert_wav
-import io
-data = convert_wav.get_binary_data_from_mongo(persister.mongo.fs, -97809700)
+# from  tools import convert_wav
+# import io
+# data = convert_wav.get_binary_data_from_mongo(persister.mongo.fs, -97809700)
+data = "R2Vub2NpZGUSV2FyIENyaW1lcyxBcGFydGhlaWQs TWFzc2FjcmUsTmFrYmEsRG1zcGxhY2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUST2NjdXBhdGlvbixSZWZ1Z2V1cyxJQOMSQKRT"
+# print()
+# decoded_text = data.decode('utf-8')
+# print(decoded_text)
+# import base64
+
+# import base64
+#
+# # The Base64 encoded string
+# base64_encoded_string = "SGVsbG8gV29ybGQh"
+#
+# # Convert the Base64 string to bytes (using 'ascii' encoding is common for Base64)
+# base64_bytes = base64_encoded_string.encode('ascii')
+#
+# # Decode the Base64 bytes into original bytes
+# decoded_bytes = base64.b64decode(base64_bytes)
+#
+# # Convert the original bytes back to a string (using the appropriate encoding, e.g., 'utf-8')
+# decoded_string = data.decode('utf-8')
+#
+# print(f"The decoded string is: {decoded_string}")
+#
+
+import base64
+
+# The Base64-encoded string
+base64_string ="R2Vub2NpZGUSV2FyIENyaW1lcyxBcGFydGhlaWQs TWFzc2FjcmUsTmFrYmEsRG1zcGxhY2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUST2NjdXBhdGlvbixSZWZ1Z2V1cyxJQOMSQKRT"
+
+
+# # 1. Convert the Base64 string to bytes (if it's not already)
+# # This step is crucial because base64.b64decode expects bytes-like object
+# base64_bytes = base64_string.encode('ascii')
+#
+# # 2. Decode the Base64 bytes
+# decoded_bytes = base64.b64decode(base64_bytes)
+#
+# # 3. Convert the decoded bytes to a string (assuming original data was text)
+# decoded_string = decoded_bytes.decode('utf-8')
+#
+# print(decoded_string)
+
+# print(base64.b64decode(data))
+from tools import tools
+from DataPersister import persister
+persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
+                      uri=config.URI, collection_name="new")
+
+list_word_very_hostile = tools.convert_string_to_list_word(tools.convert_bas64_to_string(
+    'R2Vub2NpZGUsV2FyIENyaW1lcyxBcGFydGhlaWQsTWFzc2FjcmUsTmFrYmEsRGlzcGxhY2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUsT2NjdXBhdGlvbixSZWZ1Z2VlcyxJQ0MsQkRT'))
+list_word_less_hostile = tools.convert_string_to_list_word(tools.convert_bas64_to_string(
+    'RnJlZWRvbSBGbG90aWxsYSxSZXNpc3RhbmNlLExpYmVyYXRpb24sRnJlZSBQYWxlc3RpbmUsR2F6YSxDZWFzZWZpcmUsUHJvdGVzdCxVTlJXQQ=='))
+
+search_values = list_word_very_hostile + ['last']
+# print(search_values)
+index_name = config.INDEX_NAME
+field_name = "transcription_audio"
+target_word = "of"
+
+body = {
+    "query": {
+        "match": {
+            field_name: target_word
+        }
+    },
+    "aggs": {
+        "word_count": {
+            "terms": {
+                "field": f"{field_name}.keyword", # Use .keyword for exact term matching
+                "include": [target_word]
+            }
+        }
+    }
+}
+
+
+# # Execute the search query
+# response = persister.es.search(index_name=config.INDEX_NAME, query=body)
+# if "aggregations" in response and "word_count" in response["aggregations"]:
+#     buckets = response["aggregations"]["word_count"]["buckets"]
+#     for bucket in buckets:
+#         if bucket["key"] == target_word:
+#             print(f"The word '{target_word}' appears {bucket['doc_count']} times.")
+# # Replace 'your_index_name'
+
+# Process the results
+print(response)

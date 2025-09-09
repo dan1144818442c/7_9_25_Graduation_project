@@ -56,14 +56,14 @@ class ElasticSerarch:
             self.logger.error(f"Faild add doc to  ELASTIC_SEARCH: {doc} with id : {id} , to index : {index_name}  - {e}")
 
     #
-    # def search(self, index_name, query):
-    #     response = self.es.search(
-    #         index=index_name,
-    #         body={'query':query} ,size=1000 )
-    #     list_res = []
-    #     for hit in response['hits']['hits']:
-    #         list_res.append(hit)
-    #     return list_res
+    def search(self, index_name, query):
+        response = self.es.search(
+            index=index_name,
+            body=query ,size=1000 )
+        list_res = []
+        for hit in response['hits']['hits']:
+            list_res.append(hit)
+        return list_res
     #
     #
     # def get_doc(self,index_name , id):

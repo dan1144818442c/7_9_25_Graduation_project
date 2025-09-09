@@ -3,7 +3,7 @@ import config
 from  DataPersister.persister import Persister
 from tools import convert_wav
 
-def transcription_and_updating_doc(field_name_for_Transcription , path_for_temporary_file , mongo_fs , id  , doc_to_update):
+def transcription_and_updating_doc(field_name_for_Transcription  , mongo_fs , id  , doc_to_update):
     logger = log.Logger.get_logger()
     try:
         print(id)
@@ -28,6 +28,6 @@ if __name__ == '__main__':
         if doc_to_update is None:
             logger.error(f"cant find the document with this id : {id} in elastic jast in mongo !")
         if  not (config.NAME_FIELD_TRANSCRIPTION_AUDIO in doc_to_update.keys()):
-            doc_to_update = transcription_and_updating_doc(field_name_for_Transcription=config.NAME_FIELD_TRANSCRIPTION_AUDIO,path_for_temporary_file=config.NAME_TEMPORARY_WAV_PATH_FILE,mongo_fs=persister.mongo.fs , id=id , doc_to_update=doc_to_update)
+            doc_to_update = transcription_and_updating_doc(field_name_for_Transcription=config.NAME_FIELD_TRANSCRIPTION_AUDIO,mongo_fs=persister.mongo.fs , id=id , doc_to_update=doc_to_update)
 
         persister.es.update_doc(index_name=config.INDEX_NAME , doc=doc_to_update , id=id)
