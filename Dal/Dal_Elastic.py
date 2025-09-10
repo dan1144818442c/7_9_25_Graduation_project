@@ -64,12 +64,8 @@ class ElasticSerarch:
         for hit in response['hits']['hits']:
             list_res.append(hit)
         return list_res
-    #
-    #
-    # def get_doc(self,index_name , id):
-    #     doc = self.es.get(index=index_name, id=id)
-    #     return doc['_source']
-    #
+
+
     def update_doc(self , index_name, doc  , id = None  ,query =None):
         if not id and not  query:
             raise ValueError("must be id or query")
@@ -91,6 +87,22 @@ class ElasticSerarch:
                 self.logger.info(f"Document with ID '{id}' not found in index '{index_name}'.)")
         except Exception as e:
             self.logger.error(f"Document with ID '{id}' not found in index '{index_name}'  {e}")
+
+
+    def delete_by_query(self , index_name , query):
+        try:
+            response = self.es.delete_by_query(index=index_name,body=query)
+            answer_list = []
+
+            if response['failures']:
+                print("Failures encountered during deletion:")
+                for failure in response['failures']:
+                    answer_list.append(failure)
+            self.logger.info(f"delete all doc by this query : {query}")
+            return answer_list
+        except Exception as e:
+            self.logger.error(f" failed delete all doc by this query : {query} : {e} ")
+
     # def delete_doc(self , index_name , id = None , query = None):
     #     if not id and not  query:
     #         raise ValueError("must be id or query")
@@ -102,5 +114,4 @@ class ElasticSerarch:
     #         self.es.delete_by_query(index=index_name , body={'query' : query})
     #
     #     return "delete"
-
 

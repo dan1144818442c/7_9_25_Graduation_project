@@ -1,3 +1,8 @@
+
+docker network create mynetw
+
+docker  network  ls
+
 docker run --name mongodb  --network=mynetw -p 27017:27017 -d mongodb/mongodb-community-server:latest
 
 docker run -d --name es -p 9200:9200   --network=mynetw -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "ES_JAVA_OPTS=-Xms1g -Xmx1g"  docker.elastic.co/elasticsearch/elasticsearch:8.15.0
@@ -21,4 +26,8 @@ docker run --name con_transcripition_v4 --network=mynetw -d image_transcripition
 
 docker build -t image_data_processing_v3 -f data_processing/Dockerfile .
 
->docker run --name con_data_processing_v3 --network=mynetw -d image_data_processing_v3
+docker run --name con_data_processing_v3 --network=mynetw -d image_data_processing_v3
+
+docker build -t image_fast_api_v3 -f end_points/Dockerfile .
+
+docker run --name con_fastapi_v8 -p 8000:8000  --network=mynetw -d image_fast_api_v3
