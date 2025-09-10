@@ -28,9 +28,9 @@ def calculating_percentage_of_danger(text, list_word, dangerous_word_score , log
 
 
 def  level_danger_text(dangerous_score  , threshold_dangerousword ):
-    if dangerous_score > (threshold_dangerousword *2) :
+    if dangerous_score > (threshold_dangerousword *1.5) :
         return "high"
-    if  dangerous_score <= threshold_dangerousword /2 :
+    if  dangerous_score <= threshold_dangerousword /3 :
         return "none"
     return "medium"
 
@@ -53,7 +53,7 @@ def calculating_percentage_of_danger_and_add_field( ):
             text = doc_to_update[config.NAME_FIELD_TRANSCRIPTION_AUDIO]
             percentage_of_danger_less_dangerous_word = calculating_percentage_of_danger(text , list_word=list_word_less_hostile , dangerous_word_score= config.LESS_DANGEROUS_WORS_SCORE , logger=logger)
             percentage_of_danger_very_dangerous_word = calculating_percentage_of_danger(text , list_word=list_word_very_hostile , dangerous_word_score= config.VERY_DANGEROUS_WORS_SCORE , logger=logger)
-            dangerous_score = percentage_of_danger_less_dangerous_word + percentage_of_danger_very_dangerous_word
+            dangerous_score = (percentage_of_danger_less_dangerous_word + percentage_of_danger_very_dangerous_word) * 100
             level_danger = level_danger_text(dangerous_score=dangerous_score ,threshold_dangerousword= config.THRESHOLD_DANGEROUS_WORD)
             if level_danger == 'none':
                 doc_to_update[config.NAME_FAILD_FOR_IS_BDS] = False

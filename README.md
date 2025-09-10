@@ -32,16 +32,16 @@ I set a threshold score — a number that marks the point where the text becomes
 
 The score is based on the ratio between the number of risky words and the total number of words in the text.
 
-I chose a threshold of 0.025, meaning that if 0.025  or more of the words in the text are risky, the text will be flagged.
+I chose a threshold of 10 %, meaning that if 10% or more of the words in the text are risky, the text will be flagged.
 This value was chosen because it gives a good balance:
 It catches texts that are clearly problematic, but avoids flagging texts that are mostly neutral or harmless.
 
 
 
 I use three risk levels based on the number of dangerous words in the text:
-less than  0.0125 = safe - bed word from  80 word ()
-over 0.05 = high risk  - bed word from  20 word ()
-0.0125  to  0.05 = medium risk
+less than  3% = safe - bed word from  80 word ()
+over 15% = high risk  - 3  bed word from  20 word ()
+3 to  15 = medium risk
 These numbers were chosen because they provide a clear separation between harmless, somewhat dangerous, and very dangerous texts - based on tests I conducted on real examples
 
 
