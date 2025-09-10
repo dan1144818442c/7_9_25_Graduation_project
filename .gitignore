@@ -1,0 +1,15 @@
+*.pyc
+
+__pycache__/
+
+venv/
+.env/
+
+.vscode/
+.idea/
+*.sublime-*
+
+.DS_Store
+Thumbs.db
+config.py
+

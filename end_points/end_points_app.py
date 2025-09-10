@@ -17,7 +17,7 @@ async def ping():
     return INSTANS_ES.ping()
 
 @app.delete("/delete_doc_with_risk_val/{risk_level}")
-async def delete_doc_with_risk_val(risk_level):
+async def delete_doc_with_risk_level(risk_level):
     query = {
         "query": {
             "term": {
@@ -28,13 +28,10 @@ async def delete_doc_with_risk_val(risk_level):
 
     return INSTANS_ES.delete_by_query(index_name=config.INDEX_NAME , query=query)
 
-# @app.post("/create_doc/{index_name}")
-# async def create_doc(index_name ,doc = Body()):
-#     return INSTANS_ES.create_doc(index_name=index_name ,doc=doc )
 
-# @app.get("/get_all_doc/{index_name}")
-# async def get_all_doc(index_name):
-#     return INSTANS_ES.search(index_name=index_name , query={"match_all":{}})
+@app.get("/get_all_doc")
+async def get_all_doc(index_name):
+    return INSTANS_ES.search(index_name=config.INDEX_NAME , query={"match_all":{}})
 
 
 @app.get("/get_all_doc_with_risk/{risk_level}")

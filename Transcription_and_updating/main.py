@@ -41,7 +41,7 @@ def get_id_transcription_and_updating_elastic():
 if __name__ == '__main__':
     while True:
         get_id_transcription_and_updating_elastic()
-        time.sleep(600)
+        time.sleep(config.REBOOT_TIME_TRANSCRIPTION)
     #
     # logger = log.Logger.get_logger()
     # persister = Persister(index_name=config.INDEX_NAME , mapping_for_elastic=config.INDEX_MAPPING , db_name=config.DB_NAME , uri=config.URI , collection_name="new")

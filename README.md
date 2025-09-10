@@ -38,3 +38,13 @@ less than  0.0125 = safe - bed word from  80 word ()
 over 0.05 = high risk  - bed word from  20 word ()
 0.0125  to  0.05 = medium risk
 These numbers were chosen because they provide a clear separation between harmless, somewhat dangerous, and very dangerous texts - based on tests I conducted on real examples
+
+
+Regarding the choice of ENDPOINT
+I chose to retrieve all DOC with RISKLEVEL according to a user request, which I think is most useful to retrieve all those with high risk or rather the medium one
+Another ENDPOINT I made is to receive all DOCs with a risk percentage higher or lower than a number - the user will enter whether they want it higher or lower and also the number/percentage they want.
+This additional ENDPOINT will be added to the DOC club based on the ID received from the user.
+Another very effective and thoughtful ENDPOINT is deleting the entire DOC with LEVELRISK that will be given by the user, for example,
+if it was decided that it is not relevant to those who have RISKLEVEL NONE and it is a shame about the large amount of space that this DATA will take up,
+then this way you can delete it and use the space that will be freed up.
+PING - check the connection to ELASTIC

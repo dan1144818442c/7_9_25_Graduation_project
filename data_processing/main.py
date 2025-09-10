@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     while True:
         calculating_percentage_of_danger_and_add_field()
-        time.sleep(600)
+        time.sleep(config.REBOOT_TIME_CALCULATION_PERCENTAGE_OF_DANGER)
 
 
 

@@ -181,38 +181,38 @@ base64_string ="R2Vub2NpZGUSV2FyIENyaW1lcyxBcGFydGhlaWQs TWFzc2FjcmUsTmFrYmEsRG1
 #
 # print(decoded_string)
 
-# print(base64.b64decode(data))
-from tools import tools
-from DataPersister import persister
-persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
-                      uri=config.URI, collection_name="new")
-
-list_word_very_hostile = tools.convert_string_to_list_word(tools.convert_bas64_to_string(
-    'R2Vub2NpZGUsV2FyIENyaW1lcyxBcGFydGhlaWQsTWFzc2FjcmUsTmFrYmEsRGlzcGxhY2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUsT2NjdXBhdGlvbixSZWZ1Z2VlcyxJQ0MsQkRT'))
-list_word_less_hostile = tools.convert_string_to_list_word(tools.convert_bas64_to_string(
-    'RnJlZWRvbSBGbG90aWxsYSxSZXNpc3RhbmNlLExpYmVyYXRpb24sRnJlZSBQYWxlc3RpbmUsR2F6YSxDZWFzZWZpcmUsUHJvdGVzdCxVTlJXQQ=='))
-
-search_values = list_word_very_hostile + ['last']
-# print(search_values)
-index_name = config.INDEX_NAME
-field_name = "transcription_audio"
-target_word = "of"
-
-body = {
-    "query": {
-        "match": {
-            field_name: target_word
-        }
-    },
-    "aggs": {
-        "word_count": {
-            "terms": {
-                "field": f"{field_name}.keyword", # Use .keyword for exact term matching
-                "include": [target_word]
-            }
-        }
-    }
-}
+# # print(base64.b64decode(data))
+# from tools import tools
+# from DataPersister import persister
+# persister = persister.Persister(index_name=config.INDEX_NAME, mapping_for_elastic=config.INDEX_MAPPING, db_name=config.DB_NAME,
+#                       uri=config.URI, collection_name="new")
+#
+# list_word_very_hostile = tools.convert_string_to_list_word(tools.convert_bas64_to_string(
+#     'R2Vub2NpZGUsV2FyIENyaW1lcyxBcGFydGhlaWQsTWFzc2FjcmUsTmFrYmEsRGlzcGxhY2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUsT2NjdXBhdGlvbixSZWZ1Z2VlcyxJQ0MsQkRT'))
+# list_word_less_hostile = tools.convert_string_to_list_word(tools.convert_bas64_to_string(
+#     'RnJlZWRvbSBGbG90aWxsYSxSZXNpc3RhbmNlLExpYmVyYXRpb24sRnJlZSBQYWxlc3RpbmUsR2F6YSxDZWFzZWZpcmUsUHJvdGVzdCxVTlJXQQ=='))
+#
+# search_values = list_word_very_hostile + ['last']
+# # print(search_values)
+# index_name = config.INDEX_NAME
+# field_name = "transcription_audio"
+# target_word = "of"
+#
+# body = {
+#     "query": {
+#         "match": {
+#             field_name: target_word
+#         }
+#     },
+#     "aggs": {
+#         "word_count": {
+#             "terms": {
+#                 "field": f"{field_name}.keyword", # Use .keyword for exact term matching
+#                 "include": [target_word]
+#             }
+#         }
+#     }
+# }
 
 
 # # Execute the search query
@@ -229,21 +229,22 @@ body = {
 
 
 #
-
-results = es.search(
-    index_name=config.INDEX_NAME,
-    query={
-        "_source": False,    # לא להביא את ה-source אלא רק את ה-id
-        "query": {"match_all": {}}
-    },
-    size=1000
-)
-
-# הוצאת כל ה-IDs מהתוצאות
-ids = [hit["_id"] for hit in results["hits"]["hits"]]
-
-print(ids)
-
+#
+# results = es.search(
+#     index_name=config.INDEX_NAME,
+#     query={
+#         "_source": False,    # לא להביא את ה-source אלא רק את ה-id
+#         "query": {"match_all": {}}
+#     },
+#     size=1000
+# )
+#
+# # הוצאת כל ה-IDs מהתוצאות
+# ids = [hit["_id"] for hit in results["hits"]["hits"]]
+#
+# print(ids)
+#
+# @REM  http://localhost:5601/app/home#/
 
 
 
