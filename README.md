@@ -15,3 +15,26 @@ probably also the transcribed one if the system was operated with the right disc
 In fact, in terms of code, I have both approaches, and if in terms of computing capabilities,
 if there is only one really powerful computer, maybe it would be better to have two systems than a weak processor, 
 so if you want to choose the first approach, you need to activate the lines of code between lines 18 - 22 in the MAIN file in the "DataPersister" folder and simply not activate the separate system.
+
+
+#######################
+I calculate the risk level of a text based on the ratio between the number of risk points and the number of words.
+Low-risk words are worth one point, and high-risk words are worth two.
+This gives me a measure that shows how "saturated" the text is with problematic words – not just how many occurrences there are, 
+but also what their weight is in the entire content.
+
+I set a threshold score — a number that marks the point where the text becomes concerning.
+
+The score is based on the ratio between the number of risky words and the total number of words in the text.
+
+I chose a threshold of 0.025, meaning that if 0.025  or more of the words in the text are risky, the text will be flagged.
+This value was chosen because it gives a good balance:
+It catches texts that are clearly problematic, but avoids flagging texts that are mostly neutral or harmless.
+
+
+
+I use three risk levels based on the number of dangerous words in the text:
+less than  0.0125 = safe - bed word from  80 word ()
+over 0.05 = high risk  - bed word from  20 word ()
+0.0125  to  0.05 = medium risk
+These numbers were chosen because they provide a clear separation between harmless, somewhat dangerous, and very dangerous texts - based on tests I conducted on real examples

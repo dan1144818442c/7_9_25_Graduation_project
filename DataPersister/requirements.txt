@@ -1,7 +1,6 @@
 pymongo
-
-elasticsearch~=8.15.0
-pymongo~=4.14.1
-kafka-python~=2.2.15
-SpeechRecognition~=3.14.3
-gridfs
+elasticsearch ~= 8.15.0
+pymongo
+kafka-python
+SpeechRecognition
+asgiref~=3.9.1

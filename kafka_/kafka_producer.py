@@ -8,8 +8,8 @@ class Produce:
         self.logger = log.Logger.get_logger()
         try:
             self.producer = KafkaProducer(
-                                    bootstrap_servers=['localhost:9092'],
-                                    # bootstrap_servers=['broker:9092'],
+                                    # bootstrap_servers=['localhost:9092'],
+                                    bootstrap_servers=['broker:9092'],
                                      value_serializer=lambda x:
                                      json.dumps(x).encode('utf-8'))
 

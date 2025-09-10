@@ -41,9 +41,9 @@ class Loader:
                             'file path with type': str(file_path) ,
                             'file path' : str(orginal_file_path)
                             }
-                logger.info("The dictionary is created with all the META DATA.")
+                logger.info(f"The dictionary is created with all this META DATA. - {dic_data}")
                 return dic_data
         except Exception as e:
-            logger.error(f"faild created the dictionary with all the META DATA.  - {e}")
+            logger.error(f"faild created the dictionary with all this META DATA .  - {e}")
             
 

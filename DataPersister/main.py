@@ -1,7 +1,8 @@
+import time
+
 import config
-from  persister import Persister
+from DataPersister.persister  import Persister
 from  kafka_.kafka_consumer import Subscriber
-from tools import convert_wav
 
 if __name__ == '__main__':
 
@@ -21,26 +22,5 @@ if __name__ == '__main__':
         # text = convert_wav.transcription_from_wav_file(config.NAME_TEMPORARY_WAV_PATH_FILE)
         # doc["transcription_audio"] = text
         persister.upload_to_elastic(doc, id_=id)
-
-
-
-        #
-        #     r = sr.Recognizer()
-        #     text = r.recognize_google(data)
-        #     text = text.lower()
-        #     print(text)
-        # for grid_out in wav_files_cursor:
-        #     print(grid_out)
-        #
-        #     # print(f"Found WAV file: {grid_out['filename']} (ID: {grid_out._id})")
-        #
-        #     # Read the file content
-        #     file_content = grid_out.read()
-        #
-        #
-        #     with open(f"downloaded_{grid_out['filename']}", "wb") as f:
-        #         f.write(file_content)
-        #
-        #
 
 

@@ -225,4 +225,25 @@ body = {
 # # Replace 'your_index_name'
 
 # Process the results
-print(response)
+# print(response)
+
+
+#
+
+results = es.search(
+    index_name=config.INDEX_NAME,
+    query={
+        "_source": False,    # לא להביא את ה-source אלא רק את ה-id
+        "query": {"match_all": {}}
+    },
+    size=1000
+)
+
+# הוצאת כל ה-IDs מהתוצאות
+ids = [hit["_id"] for hit in results["hits"]["hits"]]
+
+print(ids)
+
+
+
+
