@@ -53,7 +53,6 @@ def calculating_percentage_of_danger_and_add_field( ):
             text = doc_to_update[config.NAME_FIELD_TRANSCRIPTION_AUDIO]
             percentage_of_danger_less_dangerous_word = calculating_percentage_of_danger(text , list_word=list_word_less_hostile , dangerous_word_score= config.LESS_DANGEROUS_WORS_SCORE , logger=logger)
             percentage_of_danger_very_dangerous_word = calculating_percentage_of_danger(text , list_word=list_word_very_hostile , dangerous_word_score= config.VERY_DANGEROUS_WORS_SCORE , logger=logger)
-            print(percentage_of_danger_very_dangerous_word)
             dangerous_score = percentage_of_danger_less_dangerous_word + percentage_of_danger_very_dangerous_word
             level_danger = level_danger_text(dangerous_score=dangerous_score ,threshold_dangerousword= config.THRESHOLD_DANGEROUS_WORD)
             if level_danger == 'none':
@@ -65,15 +64,21 @@ def calculating_percentage_of_danger_and_add_field( ):
 
             doc_to_update[config.NAME_FAILD_FOR_BDS_PERCENT] = dangerous_score
 
-            print(level_danger)
         persister.es.update_doc(index_name=config.INDEX_NAME, doc=doc_to_update, id=id)
         logger.info(f"update this doc : { doc_to_update} in elastic with tis new fields :  1:{ config.NAME_FAILD_FOR_IS_BDS }  2: {config.NAME_FAILD_FOR_BDS_THREAT_LEVEL}  3: {config.NAME_FAILD_FOR_BDS_PERCENT}  ")
 
 if __name__ == '__main__':
+    logger = log.Logger.get_logger()
 
     while True:
-        calculating_percentage_of_danger_and_add_field()
+        try:
+            calculating_percentage_of_danger_and_add_field()
+            logger.info("calculating_percentage_of_danger_and_add_field for all document that have their id in mongodb")
+        except Exception as e:
+            logger.error(f"can't calculating_percentage_of_danger_and_add_field for all document that have their id in mongodb -- {e}")
+
         time.sleep(config.REBOOT_TIME_CALCULATION_PERCENTAGE_OF_DANGER)
+
 
 
 
